@@ -5,14 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7b66b7ba-aab8-424e-a51e-b0707360f175" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/dao/FacturaProductoDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/entity/FacturaProducto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/repository/mysql/MySQLFacturaProductoDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/factory/DAOFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/factory/DAOFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repository/mysql/MySQLDAOFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/mysql/MySQLDAOFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/FacturaProductoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/FacturaProductoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/entity/FacturaProducto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entity/FacturaProducto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repository/mysql/MySQLFacturaProductoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/mysql/MySQLFacturaProductoDAO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,6 +117,17 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <ignored-roots>

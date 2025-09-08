@@ -13,4 +13,5 @@ public class FacturaProducto {
         this.cantidad = cantidad;
         this.idFactura = idFactura;
     }
+
 }
