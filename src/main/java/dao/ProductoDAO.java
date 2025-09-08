@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface ProductoDAO {
+    Producto getProductoById(Integer id);
+
     List<Producto> listarTodos() throws SQLException;
     
     void crearProducto(int id, String nombre, Double valor);

@@ -17,14 +17,12 @@ public class Main {
             DAOFactory factory = DAOFactory.getInstance(DBType.MYSQL);
 
             // 2. Obtenemos el DAO
-            ClienteDAO clienteDAO = factory.crearClienteDAO();
+
             FacturaDAO facturaDAO = factory.crearFacturaDAO();
             ProductoDAO productoDAO = factory.crearProductoDAO();
             FacturaProductoDAO facturaProductoDAO = factory.crearFacturaProductoDAO();
+            ClienteDAO clienteDAO = factory.crearClienteDAO();
 
-            if(clienteDAO.listarTodos().size()==0){
-                clienteDAO.parseoCsv();
-            }
 
             if(facturaDAO.listarTodos().size()==0){
                 facturaDAO.parseoCsv();
@@ -36,15 +34,21 @@ public class Main {
             if(facturaProductoDAO.listarTodos().size()==0){
                 facturaProductoDAO.parseoCsv();
             }
+            if(clienteDAO.listarTodos().size()==0){
+                clienteDAO.parseoCsv();
+            }
+
             // 4. Listamos todas las personas
-            clienteDAO.listarTodos().forEach(System.out::println);
+            /*clienteDAO.listarTodos().forEach(System.out::println);
 
             facturaDAO.listarTodos().forEach(System.out::println);
             productoDAO.listarTodos().forEach(System.out::println);
-            facturaProductoDAO.listarTodos().forEach(System.out::println);
+            facturaProductoDAO.listarTodos().forEach(System.out::println);*/
 
 
             System.out.println(productoDAO.obtenerRecaudacionMaxima());
+
+            System.out.println(clienteDAO.listarOrdenadoPorRecaudacion());
 
         } catch (SQLException e) {
             System.out.println("Error en main: "+e.getMessage());

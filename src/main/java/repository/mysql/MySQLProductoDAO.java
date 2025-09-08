@@ -118,10 +118,14 @@ public class MySQLProductoDAO implements ProductoDAO {
             throw new RuntimeException(e);
         }
     }
-    public Producto getProductoById(int id) {
-        final String sql = "SELECT * FROM persons WHERE id = " + id + ";";
+    @Override
+    public Producto getProductoById(Integer id) {
+        if(id<=0){
+            return null;
+        }
+        final String sql = "SELECT * FROM producto WHERE idProducto = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setLong(1, id);
+            ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     return new Producto(
@@ -132,7 +136,10 @@ public class MySQLProductoDAO implements ProductoDAO {
                 }
             }
         } catch (SQLException e) {
+            System.out.println("Error en obtener producto por id: " + e.getMessage());
             e.printStackTrace();
+            System.exit(5);
+
         }
         return null;
     }

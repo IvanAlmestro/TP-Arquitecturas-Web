@@ -2,7 +2,13 @@ package repository.mysql;
 
 import dao.ClienteDAO;
 
+import dao.FacturaDAO;
+import dao.FacturaProductoDAO;
+import dao.ProductoDAO;
 import entity.Cliente;
+import entity.Factura;
+import entity.FacturaProducto;
+import entity.Producto;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -12,14 +18,22 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MySQLClienteDAO implements ClienteDAO {
 
     private final Connection conn;
+    private FacturaDAO facturaDAO;
+    private FacturaProductoDAO facturaProductoDAO;
+    private ProductoDAO productoDAO;
 
-    public MySQLClienteDAO(Connection connection) throws SQLException {
+    public MySQLClienteDAO(Connection connection, FacturaDAO facturaDAO, FacturaProductoDAO facturaProductoDAO, ProductoDAO productoDAO) throws SQLException {
         this.conn = connection;
+        this.facturaDAO = facturaDAO;
+        this.facturaProductoDAO = facturaProductoDAO;
+        this.productoDAO = productoDAO;
         crearTablaSiNoExiste();
 
     }
@@ -113,6 +127,51 @@ public class MySQLClienteDAO implements ClienteDAO {
             }
         }
         return clientes;
+    }
+
+    @Override
+    public List<Cliente> listarOrdenadoPorRecaudacion()  throws SQLException {
+        ArrayList<Map<String, Object>> lista = new ArrayList<>();
+        Map<String, Object> map = new HashMap<>();
+
+        List<Cliente> clientesOrdenado = new ArrayList<>();
+        List<Cliente> clientes = this.listarTodos();
+
+        for (Cliente cliente : clientes) {
+            Double recaudacion = 0.0;
+            List<Factura> facturasPorCliente = facturaDAO.listarPorCliente(cliente.getIdCliente());
+
+            for (Factura factura : facturasPorCliente) {
+                List<FacturaProducto> facturaProductosPorFactura = facturaProductoDAO.listarPorFactura(factura.getIdFactura());
+
+                for (FacturaProducto facturaProducto : facturaProductosPorFactura) {
+                    Producto p = productoDAO.getProductoById(facturaProducto.getIdProducto());
+                    if(p!=null){
+                        recaudacion += (p.getValor() * facturaProducto.getCantidad());
+                    }
+
+
+                }
+
+            }
+            map.put("cliente", cliente);
+            map.put("recaudacion", recaudacion);
+            lista.add(map);
+        }
+
+        // ordenar por recaudación descendente
+        lista.sort((m1, m2) -> Double.compare(
+                (Double) m2.get("recaudacion"),
+                (Double) m1.get("recaudacion")
+        ));
+
+        // devolver solo clientes en orden
+        List<Cliente> clientesOrdenados = new ArrayList<>();
+        for (Map<String,Object> m : lista) {
+            clientesOrdenados.add((Cliente) m.get("cliente"));
+        }
+
+        return clientesOrdenados;
     }
 
 

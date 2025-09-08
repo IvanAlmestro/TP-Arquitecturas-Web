@@ -8,12 +8,8 @@ import java.util.List;
 
 public interface ClienteDAO {
     List<Cliente> listarTodos() throws SQLException;
-    /*
-    *     Person getPersonById(int id);
 
-    *     void updatePerson(Person person);
-    void deletePerson(int id);
-    * */
+    List<Cliente> listarOrdenadoPorRecaudacion()  throws SQLException ;
 
 
     void crearCliente(int id, String nombre, String email);

@@ -10,10 +10,6 @@ import factory.DAOFactory;
 import java.sql.SQLException;
 
 public class MySQLDAOFactory extends DAOFactory {
-    @Override
-    public ClienteDAO crearClienteDAO() throws SQLException {
-        return new MySQLClienteDAO(ConexionMySQL.getInstance().getConnection());
-    }
 
     @Override
     public FacturaDAO crearFacturaDAO() throws SQLException {
@@ -26,6 +22,11 @@ public class MySQLDAOFactory extends DAOFactory {
     @Override
     public FacturaProductoDAO crearFacturaProductoDAO() throws SQLException {
         return new MySQLFacturaProductoDAO(ConexionMySQL.getInstance().getConnection());
+    }
+
+    @Override
+    public ClienteDAO crearClienteDAO() throws SQLException {
+        return new MySQLClienteDAO(ConexionMySQL.getInstance().getConnection(), this.crearFacturaDAO(), this.crearFacturaProductoDAO(), this.crearProductoDAO());
     }
 
 }
