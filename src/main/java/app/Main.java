@@ -2,6 +2,7 @@ package app;
 import dao.ClienteDAO;
 
 import dao.FacturaDAO;
+import dao.FacturaProductoDAO;
 import dao.ProductoDAO;
 import factory.DAOFactory;
 import factory.DBType;
@@ -19,6 +20,7 @@ public class Main {
             ClienteDAO clienteDAO = factory.crearClienteDAO();
             FacturaDAO facturaDAO = factory.crearFacturaDAO();
             ProductoDAO productoDAO = factory.crearProductoDAO();
+            FacturaProductoDAO facturaProductoDAO = factory.crearFacturaProductoDAO();
 
             if(clienteDAO.listarTodos().size()==0){
                 clienteDAO.parseoCsv();
@@ -31,11 +33,15 @@ public class Main {
                 productoDAO.parseoCsv();
             }
 
+            if(facturaProductoDAO.listarTodos().size()==0){
+                facturaProductoDAO.parseoCsv();
+            }
             // 4. Listamos todas las personas
             clienteDAO.listarTodos().forEach(System.out::println);
 
             facturaDAO.listarTodos().forEach(System.out::println);
             productoDAO.listarTodos().forEach(System.out::println);
+            facturaProductoDAO.listarTodos().forEach(System.out::println);
 
         } catch (SQLException e) {
             System.out.println("Error en main: "+e.getMessage());

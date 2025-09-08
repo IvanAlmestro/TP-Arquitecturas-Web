@@ -4,7 +4,9 @@ package factory;
 
 import dao.ClienteDAO;
 import dao.FacturaDAO;
+import dao.FacturaProductoDAO;
 import dao.ProductoDAO;
+import entity.FacturaProducto;
 import repository.mysql.MySQLDAOFactory;
 
 import java.sql.SQLException;
@@ -44,4 +46,7 @@ public  abstract  class DAOFactory {
     public abstract FacturaDAO crearFacturaDAO() throws SQLException;
 
     public abstract ProductoDAO crearProductoDAO() throws SQLException;
+
+    public abstract FacturaProductoDAO crearFacturaProductoDAO() throws SQLException;
+
 }
