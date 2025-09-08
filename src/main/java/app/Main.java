@@ -43,6 +43,9 @@ public class Main {
             productoDAO.listarTodos().forEach(System.out::println);
             facturaProductoDAO.listarTodos().forEach(System.out::println);
 
+
+            System.out.println(productoDAO.obtenerRecaudacionMaxima());
+
         } catch (SQLException e) {
             System.out.println("Error en main: "+e.getMessage());
             e.printStackTrace();

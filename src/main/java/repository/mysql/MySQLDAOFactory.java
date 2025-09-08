@@ -21,7 +21,7 @@ public class MySQLDAOFactory extends DAOFactory {
     }
     @Override
     public ProductoDAO crearProductoDAO() throws SQLException {
-        return new MySQLProductoDAO(ConexionMySQL.getInstance().getConnection());
+        return new MySQLProductoDAO(ConexionMySQL.getInstance().getConnection(), this.crearFacturaProductoDAO());
     }
     @Override
     public FacturaProductoDAO crearFacturaProductoDAO() throws SQLException {

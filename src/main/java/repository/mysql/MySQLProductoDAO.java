@@ -1,6 +1,8 @@
 package repository.mysql;
 
+import dao.FacturaProductoDAO;
 import dao.ProductoDAO;
+import entity.FacturaProducto;
 import entity.Producto;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -10,14 +12,19 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MySQLProductoDAO implements ProductoDAO {
 
     private final Connection conn;
 
-    public MySQLProductoDAO(Connection connection) throws SQLException {
+    private FacturaProductoDAO facturaProductoDAO;
+
+    public MySQLProductoDAO(Connection connection, FacturaProductoDAO facturaProductoDAO) throws SQLException {
         this.conn = connection;
+        this.facturaProductoDAO = facturaProductoDAO;
         crearTablaSiNoExiste();
 
     }
@@ -59,6 +66,40 @@ public class MySQLProductoDAO implements ProductoDAO {
             System.exit(5);
         }
     }
+
+    @Override
+    public Map<String, Object> obtenerRecaudacionMaxima() throws SQLException {
+
+        Map<String,Object> map = new HashMap<>();
+
+        String nombre="";
+        Double valorMaximo=0.0;
+        Double valorParcial;
+
+        //obtengo todos los productos
+        List<Producto> productos = this.listarTodos();
+        for(Producto producto: productos){
+            valorParcial = 0.0;
+            //por cada uno recorro y obtengo sus facturas de productos
+            List<FacturaProducto> facturaProductos = facturaProductoDAO.listarPorProducto(producto.getIdProducto());
+
+            for(FacturaProducto facturaProducto: facturaProductos) {
+                //por cada una me guardo la suma de valor
+                valorParcial += (facturaProducto.getCantidad() * producto.getValor());
+                if (valorParcial > valorMaximo) {
+                    valorMaximo = valorParcial;
+                    nombre = producto.getNombre();
+                }
+            }
+
+        }
+
+        map.put("Nombre producto", nombre);
+        map.put("Recaudación", valorMaximo);
+
+        return map;
+    }
+
     @Override
     public void crearProducto(int idProducto, String nombre, Double valor) {
         String sql = "INSERT INTO producto (idProducto, nombre, valor) VALUES (?, ?, ?)";

@@ -4,6 +4,7 @@ import entity.Producto;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 public interface ProductoDAO {
     List<Producto> listarTodos() throws SQLException;
@@ -11,4 +12,6 @@ public interface ProductoDAO {
     void crearProducto(int id, String nombre, Double valor);
 
     void parseoCsv();
+
+    Map<String,Object> obtenerRecaudacionMaxima() throws SQLException;
 }
