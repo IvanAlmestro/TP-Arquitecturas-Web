@@ -79,17 +79,10 @@ public class MySQLProductoDAO implements ProductoDAO {
         //obtengo todos los productos
         List<Producto> productos = this.listarTodos();
         for(Producto producto: productos){
-            valorParcial = 0.0;
-            //por cada uno recorro y obtengo sus facturas de productos
-            List<FacturaProducto> facturaProductos = facturaProductoDAO.listarPorProducto(producto.getIdProducto());
-
-            for(FacturaProducto facturaProducto: facturaProductos) {
-                //por cada una me guardo la suma de valor
-                valorParcial += (facturaProducto.getCantidad() * producto.getValor());
-                if (valorParcial > valorMaximo) {
-                    valorMaximo = valorParcial;
-                    nombre = producto.getNombre();
-                }
+            valorParcial=this.obtenerRecaudacion(producto);
+            if(valorParcial>valorMaximo){
+                valorMaximo=valorParcial;
+                nombre=producto.getNombre();
             }
 
         }
@@ -98,6 +91,19 @@ public class MySQLProductoDAO implements ProductoDAO {
         map.put("Recaudación", valorMaximo);
 
         return map;
+    }
+
+    private Double obtenerRecaudacion(Producto producto) throws SQLException {
+        Double valor = 0.0;
+        //por cada uno recorro y obtengo sus facturas de productos
+        List<FacturaProducto> facturaProductos = facturaProductoDAO.listarPorProducto(producto.getIdProducto());
+
+        for(FacturaProducto facturaProducto: facturaProductos) {
+            //por cada una me guardo la suma de valor
+            valor += (facturaProducto.getCantidad() * producto.getValor());
+
+        }
+        return valor;
     }
 
     @Override
