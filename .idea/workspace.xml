@@ -5,7 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7b66b7ba-aab8-424e-a51e-b0707360f175" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/repository/mysql/MySQLProductoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/mysql/MySQLProductoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/FacturaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/FacturaDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/FacturaProductoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/FacturaProductoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repository/mysql/MySQLFacturaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/mysql/MySQLFacturaDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repository/mysql/MySQLFacturaProductoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/mysql/MySQLFacturaProductoDAO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

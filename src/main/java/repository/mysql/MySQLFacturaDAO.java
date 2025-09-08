@@ -2,6 +2,7 @@ package repository.mysql;
 
 import dao.FacturaDAO;
 import entity.Factura;
+import entity.FacturaProducto;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -76,7 +77,7 @@ public class MySQLFacturaDAO implements FacturaDAO {
             System.exit(4);
         }
     }
-    public Factura getPersonById(int id) {
+    public Factura getFacturaById(int id) {
         final String sql = "SELECT * FROM factura WHERE id = " + id + ";";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setLong(1, id);
@@ -110,6 +111,29 @@ public class MySQLFacturaDAO implements FacturaDAO {
             }
         }
         return facturas;
+    }
+
+    @Override
+    public List<Factura> listarPorCliente(Integer idCliente) throws SQLException {
+        List<Factura> facturas = new ArrayList<>();
+        String sql = "SELECT idCliente, idFactura FROM factura where idCliente = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, idCliente);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    int idFactura = rs.getInt("idFactura");
+                    facturas.add(new Factura(idCliente,idFactura));
+                }
+            }
+            return facturas;
+        }catch (Exception e) {
+            System.out.println("Error en listado de factura por idCliente: "+e.getMessage());
+            e.printStackTrace();
+            System.exit(5);
+            return null;
+        }
+
+
     }
 
 }

@@ -10,7 +10,10 @@ public interface FacturaProductoDAO {
     void crearFacturaProducto(Integer idProducto, Integer cantidad, Integer idFactura);
 
     List<FacturaProducto> listarTodos() throws SQLException;
+
     List<FacturaProducto> listarPorProducto(Integer idProducto) throws SQLException;
+
+    List<FacturaProducto> listarPorFactura(Integer idFactura) throws SQLException;
 
     void parseoCsv();
 }

@@ -123,4 +123,27 @@ public class MySQLFacturaProductoDAO implements FacturaProductoDAO {
         }
     }
 
+
+    @Override
+    public List<FacturaProducto> listarPorFactura(Integer idFactura) throws SQLException {
+        List<FacturaProducto> facturasProductos = new ArrayList<>();
+        String sql = "SELECT idProducto, cantidad, idFactura FROM factura_producto where idFactura = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, idFactura);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    int idProducto = rs.getInt("idProducto");
+                    int cantidad = rs.getInt("cantidad");
+                    facturasProductos.add(new FacturaProducto(idProducto, cantidad,idFactura));
+                }
+            }
+            return facturasProductos;
+        }catch (Exception e) {
+            System.out.println("Error en listado de factura_producto por idFactura: "+e.getMessage());
+            e.printStackTrace();
+            System.exit(5);
+            return null;
+        }
+    }
+
 }
